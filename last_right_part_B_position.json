@@ -1,0 +1,17 @@
+{
+  "object": "part_B_2",
+  "description": "上一次任务开始时位于右侧的零件B",
+  "coordinate_frame": "world",
+  "position_xyz_m": [
+    0.254253,
+    -0.178152,
+    0.74
+  ],
+  "surface_position_xyz_m": [
+    0.33181,
+    -0.050669,
+    0.789093
+  ],
+  "source": "agent_execution_trace.json phase 1 state_before; head_camera RGB-D visual estimate",
+  "privileged_object_pose_used": false
+}
