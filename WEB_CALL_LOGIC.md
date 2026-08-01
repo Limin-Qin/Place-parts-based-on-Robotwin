@@ -172,12 +172,13 @@ move_home  -> 必要时回到初始位置
 
 | 作用 | 文件 |
 |---|---|
-| Shell 入口 | `examples/my_parts_box_scene/run.sh` |
-| Web 服务及工作进程管理 | `examples/my_parts_box_scene/web/server.py` |
-| 场景创建与持久化 Agent 循环 | `examples/my_parts_box_scene/parts_box_scene.py` |
-| 闭环规划 | `examples/my_parts_box_scene/agent/planner.py` |
-| 技能安全分派 | `examples/my_parts_box_scene/agent/plan_executor.py` |
-| `pick_visual_asset` 实现 | `examples/my_parts_box_scene/agent/robot_skills.py` |
-| Web 专用 A/B 接触矩阵 | `examples/my_parts_box_scene/agent/web_pick_contact_poses.json` |
+| Shell 入口 | `run.sh` |
+| Web 服务及工作进程管理 | `web/server.py` |
+| 场景创建与持久化 Agent 循环 | `parts_box_scene.py` |
+| 闭环规划 | agent/planner.py` |
+| 技能安全分派 | `agent/plan_executor.py` |
+| `pick_visual_asset` 实现 | `agent/robot_skills.py` |
+| Web 专用 A/B 接触矩阵 | agent/web_pick_contact_poses.json` |
 | RoboTwin 通用抓取实现 | `envs/_base_task.py` |
+
 
