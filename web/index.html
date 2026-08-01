@@ -1,0 +1,197 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>RoboTwin · Embodied Agent Console</title>
+    <meta
+      name="description"
+      content="RoboTwin具身机器人Agent多视角控制与任务监控界面"
+    />
+    <link rel="stylesheet" href="/styles.css?v=7" />
+  </head>
+  <body>
+    <div class="ambient ambient-one"></div>
+    <div class="ambient ambient-two"></div>
+
+    <main class="shell">
+      <header class="topbar">
+        <div class="brand">
+          <div class="brand-mark" aria-hidden="true">
+            <span></span><span></span><span></span>
+          </div>
+          <div>
+            <p class="eyebrow">EMBODIED INTELLIGENCE LAB</p>
+            <h1>RoboTwin Agent Console</h1>
+          </div>
+        </div>
+        <div class="system-state">
+          <span class="pulse" id="statusPulse"></span>
+          <div>
+            <span class="state-label">系统状态</span>
+            <strong id="systemStatus">待机</strong>
+          </div>
+        </div>
+      </header>
+
+      <section class="workspace">
+        <section class="vision-panel" aria-label="机器人多视角画面">
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow">LIVE PERCEPTION</p>
+              <h2>机器人视觉</h2>
+            </div>
+            <div class="camera-meta">
+              <span id="cameraFreshness">等待实时画面</span>
+              <span class="live-dot"></span>
+            </div>
+          </div>
+
+          <div class="camera-layout">
+            <article class="camera-card head-card">
+              <div class="camera-title">
+                <span>机器人头部相机</span>
+                <small>PRIMARY HEAD RGB-D · 640×480 · WIDE FOV</small>
+              </div>
+              <div class="camera-frame">
+                  <img
+                    data-camera="head_camera"
+                    width="640"
+                    height="480"
+                    alt="机器人头部相机画面"
+                  />
+                <div class="viewfinder">
+                  <i></i><i></i><i></i><i></i>
+                </div>
+                <div class="camera-empty">等待场景启动</div>
+              </div>
+            </article>
+
+            <div class="wrist-stack">
+              <article class="camera-card wrist-card">
+                <div class="camera-title">
+                  <span>左腕相机</span>
+                  <small>LEFT WRIST · RGB</small>
+                </div>
+                <div class="camera-frame">
+                  <img
+                    data-camera="left_camera"
+                    width="640"
+                    height="480"
+                    alt="左腕相机画面"
+                  />
+                  <div class="scanline"></div>
+                  <div class="camera-empty">等待左腕相机</div>
+                </div>
+              </article>
+
+              <article class="camera-card wrist-card">
+                <div class="camera-title">
+                  <span>右腕相机</span>
+                  <small>RIGHT WRIST · RGB</small>
+                </div>
+                <div class="camera-frame">
+                  <img
+                    data-camera="right_camera"
+                    width="640"
+                    height="480"
+                    alt="右腕相机画面"
+                  />
+                  <div class="scanline"></div>
+                  <div class="camera-empty">等待右腕相机</div>
+                </div>
+              </article>
+            </div>
+          </div>
+        </section>
+
+        <aside class="control-panel">
+          <div class="section-heading control-heading">
+            <div>
+              <p class="eyebrow">NATURAL LANGUAGE CONTROL</p>
+              <h2>Agent 指令</h2>
+            </div>
+            <span class="mode-badge" id="modeBadge">REAL</span>
+          </div>
+
+          <div class="agent-card">
+            <div class="agent-orb" aria-hidden="true">
+              <div class="orb-core"></div>
+            </div>
+            <div>
+              <span>当前阶段</span>
+              <strong id="currentStage">等待用户输入任务</strong>
+            </div>
+          </div>
+
+          <form id="commandForm">
+            <label for="commandInput">告诉机器人要做什么</label>
+            <div class="command-box">
+              <textarea
+                id="commandInput"
+                maxlength="500"
+                rows="4"
+                placeholder="例如：请帮我拿零件B"
+              ></textarea>
+              <div class="command-actions">
+                <span><kbd>Ctrl</kbd> + <kbd>Enter</kbd> 发送</span>
+                <button type="submit" id="sendButton">
+                  <span>发送任务</span>
+                  <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M4 12h14M13 6l6 6-6 6" />
+                  </svg>
+                </button>
+              </div>
+            </div>
+          </form>
+
+          <div class="quick-commands">
+            <button data-command="请帮我拿零件A">请帮我拿零件A</button>
+            <button data-command="拿取全部零件B">拿取全部零件B</button>
+            <button data-command="拿取左侧零件A">
+              拿取左侧零件A
+            </button>
+          </div>
+
+          <div class="task-card">
+            <div class="task-card-head">
+              <span>执行记录</span>
+              <div class="task-card-actions">
+                <button id="reloadButton" class="reload-button" disabled>
+                  重新加载场景
+                </button>
+                <button id="stopButton" class="stop-button" disabled>
+                  停止任务
+                </button>
+              </div>
+            </div>
+            <div class="terminal" id="terminal" aria-live="polite">
+              <p class="terminal-placeholder">
+                任务日志将在这里显示。Agent会理解文字、观察场景、
+                编排技能并控制机器人执行。
+              </p>
+            </div>
+          </div>
+
+          <div class="artifacts">
+            <a id="videoLink" href="/api/artifacts/video" download>
+              <span>下载操作视频</span><small>MP4</small>
+            </a>
+            <a id="traceLink" href="/api/artifacts/trace" download>
+              <span>查看执行轨迹</span><small>JSON</small>
+            </a>
+          </div>
+
+        </aside>
+      </section>
+
+      <footer>
+        <span>RoboTwin 2.0 · Head RGB-D + YOLO + Skill Planning</span>
+        <span>三路机器人视觉监控 / 终端入口保持可用</span>
+      </footer>
+    </main>
+
+    <div class="toast" id="toast" role="status"></div>
+    <script src="/app.js?v=7"></script>
+  </body>
+</html>
