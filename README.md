@@ -1,4 +1,4 @@
-整个项目基于RoboTwin 2.0开发
+整个项目基于RoboTwin 2.0开发，针对操作方向任务进行开发
 
 查看project progress descreption可以看项目构建流程
 
